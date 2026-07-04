@@ -2,13 +2,17 @@
   fetchPnpmDeps,
   lib,
   makeWrapper,
-  nodejs,
-  pnpm,
+  nodejs_26,
+  pnpm_10,
   pnpmBuildHook,
   pnpmConfigHook,
   python3,
   stdenv,
 }:
+let
+  nodejs = nodejs_26;
+  pnpm = pnpm_10.override { nodejs-slim = nodejs; };
+in
 stdenv.mkDerivation (finalAttrs: {
   __structuredAttrs = true;
   strictDeps = true;
@@ -30,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
     inherit (finalAttrs) pname version src;
     inherit pnpm;
     fetcherVersion = 4;
-    hash = "sha256-Mv2AzCYXBFRxmAW6gjP7dQaIvRzR6CtXexvYDivCGcI=";
+    hash = "sha256-WnHGAivvn8baRW8U83Tz3MLsW606+3neYTyhxT5eVOU=";
   };
 
   # Wrap the CLIs we actually use; lattice-mcp is the MCP server.
